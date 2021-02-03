@@ -13,5 +13,7 @@ class Rectangle{
 		int GetHeight();
 		int GetWidth();
 		bool operator==(Rectangle&);
+		bool operator<(Rectangle&);
+		bool operator>(Rectangle&);
 };
 #endif

@@ -23,3 +23,13 @@ ostream& operator<<(ostream& os, Rectangle& r){
 	os << "width : " << r.width << " height : " << r.height <<std::endl;
 	return os;
 }
+
+bool Rectangle::operator<(Rectangle& r){
+	if(height*width < r.height* r.width) return true;
+	else return false;
+}
+
+bool Rectangle::operator>(Rectangle& r){
+	if(height*width > r.height * r.width) return true;
+	else return false;
+}
