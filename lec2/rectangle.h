@@ -2,7 +2,7 @@
 #define RECTANGLE_H
 #include"header.h"
 class Rectangle;
-ostream& operator<<(ostream&, Rectangle&);
+//ostream& operator<<(ostream&, Rectangle&);
 class Rectangle{
 	private:
 		int xLow, yLow, height, width;
