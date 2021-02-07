@@ -13,11 +13,12 @@ class Polinomial{
 	public:
 		Polinomial(int t);
 		~Polinomial();
-		Polinomial(Polinomial&);
-		Polinomial operator=(Polinomial&);
+		Polinomial(Polinomial &);
+		Polinomial& operator=(const Polinomial&);
 		Polinomial Add(const Polinomial);
 		void Init(int); //입력받음
 		void NewTerm(const float theCoef, const int theExp);
+		void Print();
 };
 
 class Term{

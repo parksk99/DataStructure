@@ -26,7 +26,6 @@ Polinomial Polinomial::Add(Polinomial b){
 	int aPos = 0, bPos = 0;
 	Polinomial c;
 	while((aPos<terms)&&(bPos<b.terms)){
-	cout<<"hi"<<endl;
 		if(termArray[aPos].exp == b.termArray[bPos].exp){
 			float tmpCoef = termArray[aPos].coef + b.termArray[bPos].coef;
 			if(tmpCoef) c.NewTerm(tmpCoef, termArray[aPos].exp);
@@ -42,14 +41,11 @@ Polinomial Polinomial::Add(Polinomial b){
 		}
 	}
 	for(;aPos<terms;aPos++){
-	cout<<"hia"<<endl;
 		c.NewTerm(termArray[aPos].coef, termArray[aPos].exp);
 	}
 	for(;bPos<b.terms; bPos++){
-	cout<<"hib"<<endl;
 		c.NewTerm(b.termArray[bPos].coef, b.termArray[bPos].exp);
 	}
-	cout<<"hi2"<<endl;
 	return c;
 }
 
@@ -79,7 +75,8 @@ ostream& operator<<(ostream& os, Polinomial& p){
 	return os;
 }
 
-Polinomial::Polinomial(Polinomial& p){
+Polinomial::Polinomial(Polinomial &p){
+	terms = 0;
 	capacity = p.capacity;
 	termArray = new Term[capacity];
 	for(int i=0; i<p.terms; i++){
@@ -87,7 +84,7 @@ Polinomial::Polinomial(Polinomial& p){
 	}
 }
 
-Polinomial Polinomial::operator=(Polinomial& p){
+Polinomial& Polinomial::operator=(const Polinomial& p){
 	terms = 0;
 	capacity = p.capacity;
 	delete[] termArray;
@@ -106,4 +103,10 @@ Term::Term(Term& t){
 Term Term::operator=(Term& t){
 	coef = t.coef;
 	exp = t.exp;
+}
+void Polinomial::Print(){
+	for(int i=0; i<terms; i++){
+		std::cout<<termArray[i].coef<<"x"<<termArray[i].exp<<" ";
+	}
+	std::cout<<endl;
 }
