@@ -8,9 +8,8 @@ class A{
 		A(A& tmp){
 			a = tmp.a;
 		}
-		A f(){
-			A tmp(100);
-			return tmp;
+		A& f(){
+			return A(100);
 		}
 };
 
