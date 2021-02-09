@@ -2,18 +2,18 @@
 class A{
 	private:
 		int a;
-		friend std::ostream& operator<<(std::ostream&, A&);
+		friend std::ostream& operator<<(std::ostream&, const A&);
 	public:
 		A(int tmp = 0) : a(tmp){};
-		A(A& tmp){
+		A(const A& tmp){
 			a = tmp.a;
 		}
-		A& f(){
+		A f(){
 			return A(100);
 		}
 };
 
-std::ostream& operator<<(std::ostream& os, A& ref){
+std::ostream& operator<<(std::ostream& os, const A& ref){
 	os<<ref.a;
 	return os;
 }
