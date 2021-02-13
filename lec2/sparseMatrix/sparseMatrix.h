@@ -2,22 +2,26 @@
 class SparseMatrix;
 class MatrixTerm;
 class SparseMatrix{
+	friend ostream& operator<<(ostream&, const SparseMatrix&);
 	private:
 		MatrixTerm *smArray;
 		int rows, cols, terms, capacity;
 	public:
 		SparseMatrix();
-		SparseMatrix(int);
+		SparseMatrix(int, int ,int);
 		SparseMatrix(const SparseMatrix&);
 		SparseMatrix Transpose();
-		void Print();
+		SparseMatrix FastTranspose();
 };
 
 class MatrixTerm{
 	friend class SparseMatrix;
+	friend ostream& operator<<(ostream&, const SparseMatrix&);
 	private:
 		int row, col, value;
 	public:
 		MatrixTerm();
-		MatrixTerm operator=(MatrixTerm&);
+		MatrixTerm operator=(const MatrixTerm&);
 };
+
+ostream& operator<<(ostream& os, const SparseMatrix&);

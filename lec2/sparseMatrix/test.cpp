@@ -3,10 +3,11 @@
 int main(){
 	SparseMatrix a;
 //	SparseMatrix b(3);
-	a.Print();
+	cout<<a;
+	cout<<a.Transpose();
 	cout<<endl;
-	SparseMatrix c(a.Transpose());
-	c.Print();
+	SparseMatrix c(a.FastTranspose());
+	cout<<c;
 	return 0;
 }
 
