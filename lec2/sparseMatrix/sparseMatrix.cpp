@@ -29,7 +29,7 @@ SparseMatrix::SparseMatrix(const SparseMatrix& b){
 	capacity = b.capacity;
 	for(int i=0; i<terms; i++) smArray[i] = b.smArray[i];
 }
-	
+
 SparseMatrix SparseMatrix::Transpose(){
 	SparseMatrix b(cols, rows, terms);
 	int pos=0;
@@ -45,7 +45,7 @@ SparseMatrix SparseMatrix::Transpose(){
 	return b;
 }
 
-SparseMatrix SparseMatrix::FastTranspose(){
+SparseMatrix SparseMatrix::FastTranspose() const{
 	SparseMatrix b(cols, rows, terms);
 	int rowSize[cols];
 	int rowStart[cols];
@@ -60,23 +60,99 @@ SparseMatrix SparseMatrix::FastTranspose(){
 		b.smArray[j].value = smArray[i].value;
 		rowStart[smArray[i].col]++;
 	}
-//	delete[] rowSize;
-//	delete[] rowStart;
 	return b;
 }
-/*void SparseMatrix::Print(){
-	for(int i=0; i<terms; i++)
-	cout<<smArray[i].row<<"행 "<<smArray[i].col<<"열 "<<smArray[i].value<<endl;
+
+SparseMatrix SparseMatrix::Multiply(const SparseMatrix& b){
+	if(cols != b.rows) throw "Incompatible Matrices";
+	SparseMatrix d(rows, b.cols, 0);
+	SparseMatrix bXpos(b.FastTranspose());
+	int currRowIndex = 0, currRowBegin = 0, currRowA = smArray[currRowIndex].row;
+	if(terms == capacity) Change1D(terms+1);
+	bXpos.Change1D(bXpos.terms + 1);
+	smArray[terms].row = rows;
+	bXpos.smArray[b.terms].row = b.cols;
+	bXpos.smArray[b.terms].col = -1;
+	int sum = 0;
+	while(currRowIndex < terms){
+		int currColIndex = 0, currColBegin = 0, currColB = bXpos.smArray[0].row;
+		while(currColIndex <= b.terms){
+			if(smArray[currRowIndex].row != currRowA){
+				d.StoreSum(sum, currRowA, currColB);
+				sum = 0;
+				while(bXpos.smArray[currColIndex].row == currColB){
+					currColIndex++;
+				}
+				currRowIndex = currRowBegin;
+				currColBegin = currColIndex;
+				currColB = bXpos.smArray[currColIndex].row;
+			}
+			else if(bXpos.smArray[currColIndex].row != currColB){
+				d.StoreSum(sum, currRowA, currColB);
+				sum = 0;
+				currRowIndex = currRowBegin;
+				currColBegin = currColIndex;
+				currColB = bXpos.smArray[currColIndex].row;
+			}
+			else{
+				if(smArray[currRowIndex].col < bXpos.smArray[currColIndex].col){
+					currRowIndex++;
+				}
+				else if(smArray[currRowIndex].col == bXpos.smArray[currColIndex].col){
+					sum += smArray[currRowIndex].row * smArray[currColIndex].row;
+					currRowIndex++; currColIndex++;
+				}
+				else{
+					currColIndex++;
+				}
+			}
+		}
+		while(smArray[currRowIndex].row == currRowA){
+			currRowIndex++;
+		}
+		currRowBegin = currRowIndex;
+		currRowA = smArray[currRowIndex].row;
+	}
+
+	return d;
 }
-*/
+
+
+void SparseMatrix::StoreSum(const int sum, const int theRow, const int theCol){
+	if(sum == 0) return;
+	else{
+		if(terms==capacity){
+			Change1D(2*capacity);
+		}
+		smArray[terms].row = theRow;
+		smArray[terms].col = theCol;
+		smArray[terms++].value = sum;
+	}
+}
+
+void SparseMatrix::Change1D(const int newSize){
+	if(newSize<terms) throw "New size must be bigger than therms";
+	MatrixTerm *tmpArray = new MatrixTerm[newSize];
+	for(int i=0; i<terms; i++){
+		tmpArray[i] = smArray[i];
+	}
+	delete[] smArray;
+	smArray = tmpArray;
+	capacity = newSize;
+}
+/*void SparseMatrix::Print(){
+  for(int i=0; i<terms; i++)
+  cout<<smArray[i].row<<"행 "<<smArray[i].col<<"열 "<<smArray[i].value<<endl;
+  }
+ */
 MatrixTerm::MatrixTerm(){
 	row = InputInt("row : ");
 	col = InputInt("col : ");
 	value = InputInt("value : ");
 }
 /*
-MatrixTerm::MatrixTerm(){
-}*/
+   MatrixTerm::MatrixTerm(){
+   }*/
 
 MatrixTerm MatrixTerm::operator=(const MatrixTerm& b){
 	row = b.row;

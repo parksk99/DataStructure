@@ -6,6 +6,7 @@ class A{
 	public:
 		A(int tmp = 0) : a(tmp){};
 		A(const A& tmp){
+			std::cout<<"hi"<<std::endl;
 			a = tmp.a;
 		}
 		A f(){
@@ -19,7 +20,7 @@ std::ostream& operator<<(std::ostream& os, const A& ref){
 }
 int main(){
 	A a(10);
-	A &b(a);
+	A b=a;
 //	std::cout<<b;
 	std::cout<<b.f();
 	

@@ -11,7 +11,10 @@ class SparseMatrix{
 		SparseMatrix(int, int ,int);
 		SparseMatrix(const SparseMatrix&);
 		SparseMatrix Transpose();
-		SparseMatrix FastTranspose();
+		SparseMatrix FastTranspose() const;
+		SparseMatrix Multiply(const SparseMatrix&);
+		void StoreSum(const int sum, const int theRow, const int theCol);
+		void Change1D(const int newSize);
 };
 
 class MatrixTerm{
