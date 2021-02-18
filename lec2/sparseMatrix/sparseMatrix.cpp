@@ -99,7 +99,7 @@ SparseMatrix SparseMatrix::Multiply(const SparseMatrix& b){
 					currRowIndex++;
 				}
 				else if(smArray[currRowIndex].col == bXpos.smArray[currColIndex].col){
-					sum += smArray[currRowIndex].row * smArray[currColIndex].row;
+					sum += smArray[currRowIndex].value * bXpos.smArray[currColIndex].value;
 					currRowIndex++; currColIndex++;
 				}
 				else{
