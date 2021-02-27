@@ -29,6 +29,7 @@ void Queue<T>::Push(const T& item){
 	int nextPos = (rear+1) % capacity;
 	if(nextPos == front){
 		ChangeSize1D(queue, capacity, 2 * capacity);
+		//여기서 오류
 		if(front > rear){
 			copy(queue + front + 1, queue + capacity, queue + capacity + front + 1);
 			front += capacity;
