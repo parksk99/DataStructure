@@ -10,8 +10,9 @@ void ChangeSize1D(T* a, const int oldSize, const int newSize){
 	T* tmp = new T[newSize];
 	int number = oldSize<newSize?oldSize:newSize;
 	copy(a, a+number, tmp);
-//	delete[] a;
-	a = tmp;
+	delete[] a;
+//	a = tmp;
+	for(int i=0; i<newSize; i++) a[i] = tmp[i];
 }
 //1차원 배열의 크기를 바꿔줌
 
