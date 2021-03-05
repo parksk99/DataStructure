@@ -5,27 +5,19 @@ template<typename T>
 class Queue;
 
 template<typename T>
+ostream& operator<<(ostream& os, Queue<T> q);
+
+template<typename T>
 class Queue{
 	template<typename K>
-	friend ostream& operator<<(ostream& os, Queue<K> q){
-		if(q.IsEmpty()) return os;
-		os<<"capacity : "<<q.capacity<<" front : "<<q.front<<" rear : "<<q.rear<<endl;
-		if(q.front > q.rear){
-			for(int i=q.front+1; i<q.capacity; i++) os<<q.queue[i]<<" ";
-			for(int i=0; i<=q.rear; i++) os<<q.queue[i]<<" ";
-		}
-		else{
-			for(int i=q.front+1; i<=q.rear; i++) os<<q.queue[i]<<" ";
-		}
-		os<<std::endl;
-		return os;
-	}
+	friend ostream& operator<<(ostream& os, Queue<K> q);
 	private:
 		int capacity;
 		int front, rear;
 		T* queue;
 	public:
 		Queue(int theCapacity = 10);
+		Queue(const Queue<T>&);
 		//생성자
 		bool IsEmpty() const;
 		//해당 큐가 비어있는지 확인
