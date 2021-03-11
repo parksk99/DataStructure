@@ -32,6 +32,12 @@ int main(){
 	queue.Push(100);
 	queue.Push(100);
 	queue.Push(100);
+	queue.Push(100);
+	queue.Push(100);
+	queue.Push(100);
+	std::cout<<queue;
+	std::cout<<queue;
+	std::cout<<queue;
 	std::cout<<queue;
 	queue.Pop();
 	queue.Pop();
@@ -43,7 +49,6 @@ int main(){
 	queue.Pop();
 	queue.Pop();
 	queue.Pop();
-	std::cout<<queue;
 
 	return 0;
 }
