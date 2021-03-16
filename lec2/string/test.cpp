@@ -14,6 +14,5 @@ int main(){
 
 	cout<<"a.Find(b) : "<<a.Find(b)<<endl;
 	cout<<"a.FastFind(b) : "<<a.FastFind(b)<<endl;
-
 	return 0;
 }
