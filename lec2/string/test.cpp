@@ -10,8 +10,9 @@ int main(){
 	String c = a.Concat(b);
 	cout<<"String a.Concat(b) : "<<c<<endl;
 	
-	cout<<"c.Substr(3,3) : "<<c.Substr(3, 3)<<endl;
 
+	cout<<"c.Substr(3,3) : "<<c.Substr(3, 3)<<endl;
+	
 	cout<<"a.Find(b) : "<<a.Find(b)<<endl;
 	cout<<"a.FastFind(b) : "<<a.FastFind(b)<<endl;
 	return 0;
