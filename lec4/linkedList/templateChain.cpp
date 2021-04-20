@@ -26,7 +26,16 @@ Chain<T>::~Chain(){
 	last = 0;
 }
 
-	template<typename T>
+template<typename T>
+Chain<T>::Chain(const Chain<T>& c){
+	~Chain();
+	Chain<T>::ChainIterator i;
+	for(i = c.Begin(); i!=NULL; i++){
+		Insert(*i);
+	}
+}
+
+template<typename T>
 Chain<T>::ChainIterator::ChainIterator(ChainNode<T>* start)
 	: current(start){}
 

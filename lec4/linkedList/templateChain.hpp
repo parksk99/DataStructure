@@ -38,6 +38,7 @@ class Chain{
 	public:
 		Chain();
 		~Chain();
+		Chain(const Chain<T>&);
 		class ChainIterator{
 			private:
 				ChainNode<T>* current;
