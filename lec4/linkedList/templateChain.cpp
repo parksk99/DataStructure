@@ -112,7 +112,7 @@ ChainNode<T>* Chain<T>::GetNode(){
 		ChainNode<T>* tmp = asl;
 		asl = asl->link;
 		tmp->link = 0;
-		tmp->data = 0;
+		//tmp->data = 0;
 		return tmp;
 	}
 	else{

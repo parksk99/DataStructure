@@ -14,7 +14,7 @@ class ChainNode{
 		T data;
 		ChainNode<T>* link;
 	public:
-		ChainNode(T newData = 0, ChainNode<T>* newLink = 0);
+		ChainNode(T newData = T(), ChainNode<T>* newLink = 0);
 		~ChainNode();
 };
 
