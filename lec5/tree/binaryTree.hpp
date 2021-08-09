@@ -28,6 +28,7 @@ class Tree{
 	public:
 		Tree();
 		Tree(T*, int n);
+		~Tree();
 		void Inorder();
 		void Inorder(TreeNode<T>*);
 		void Preorder();
@@ -41,7 +42,7 @@ class Tree{
 				T* Next();
 			private:
 				TreeNode<T>* currentNode;
-				std::queue<TreeNode<T>*> q;
+//				std::queue<TreeNode<T>*> q;
 		};
 		TreeNode<T>** FindPosition(){
 			std::queue<TreeNode<T>*> q;

@@ -58,6 +58,24 @@ Tree<T>::Tree(T* data, int n){
 }
 
 template<typename T>
+Tree<T>::~Tree(){
+	std::queue<TreeNode<T>*> q;
+	TreeNode<T>* current = root;
+	q.push(current);
+	while(!q.empty()){
+		current = q.front();
+		if(current->leftChild){
+			q.push(current->leftChild);
+		}
+		if(current->rightChild){
+			q.push(current->rightChild);
+		}
+		q.pop();
+		delete[] current;
+	}
+}
+
+template<typename T>
 void Tree<T>::Inorder(){
 	Inorder(root);
 }
