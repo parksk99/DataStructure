@@ -29,6 +29,7 @@ class Tree{
 		Tree();
 		Tree(T*, int n);
 		~Tree();
+		Tree(const Tree<T>&);
 		void Inorder();
 		void Inorder(TreeNode<T>*);
 		void Preorder();
@@ -38,31 +39,32 @@ class Tree{
 		void NonrecInorder();
 		class Iterator{
 			public:
-				Iterator(){ currentNode = root;}
-				T* Next();
+				Iterator(){ currentNode = root; q.push(root);}
+				TreeNode<T>* Next();
+
 			private:
 				TreeNode<T>* currentNode;
-//				std::queue<TreeNode<T>*> q;
+				std::queue<TreeNode<T>*> q;
 		};
 		TreeNode<T>** FindPosition(){
-			std::queue<TreeNode<T>*> q;
-			TreeNode<T>* current = root;
-			q.push(current);
-			while(true){
-				current = q.front();
+//			std::queue<TreeNode<T>*> q;
+			TreeNode<T>* current;
+//			position.push(current);
+			while(!position.empty()){
+				current = position.front();
 				if(current->leftChild){
-					q.push(current->leftChild);
+					position.push(current->leftChild);
 				}
 				else{
 					return &(current->leftChild);
 				}
 				if(current->rightChild){
-					q.push(current->rightChild);
+					position.push(current->rightChild);
 				}
 				else{
+					position.pop();
 					return &(current->rightChild);
 				}
-				q.pop();
 			}
 		}
 };

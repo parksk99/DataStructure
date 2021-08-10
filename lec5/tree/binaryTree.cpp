@@ -13,8 +13,18 @@ TreeNode<T>::TreeNode(T theData){
 template<typename T>
 TreeNode<T>::TreeNode(const TreeNode<T>& ref){
 	data = ref.data;
-	leftChild = ref.leftChild;
-	rightChild = ref.rightChild;
+	if(ref.leftChild){
+	leftChild = new TreeNode<T>(*(ref.leftChild));
+	}
+	else{
+		leftChild = NULL;
+	}
+	if(ref.rightChild){
+	rightChild = new TreeNode<T>(*(ref.rightChild));
+	}
+	else{
+		rightChild = NULL;
+	}
 }
 
 template<typename T>
@@ -40,20 +50,20 @@ Tree<T>::Tree(T* data, int n){
 		TreeNode<T> **tmp = FindPosition();
 		*tmp = new TreeNode<T>(data[i]);
 		/*TreeNode<T>* curr = position.front();
-		if(curr->leftChild==NULL){
-			curr->leftChild = new TreeNode<T>(data[i]);
-			position.push(curr->leftChild);
-		}
-		else if(curr->rightChild == NULL){
-			curr->rightChild = new TreeNode<T>(data[i]);
-			position.push(curr->rightChild);
-			position.pop();
-		}
-		else{
-			curr = position.front();
-			curr->leftChild = new TreeNode<T>(data[i]);
-			position.push(curr->leftChild);
-		}*/
+		  if(curr->leftChild==NULL){
+		  curr->leftChild = new TreeNode<T>(data[i]);
+		  position.push(curr->leftChild);
+		  }
+		  else if(curr->rightChild == NULL){
+		  curr->rightChild = new TreeNode<T>(data[i]);
+		  position.push(curr->rightChild);
+		  position.pop();
+		  }
+		  else{
+		  curr = position.front();
+		  curr->leftChild = new TreeNode<T>(data[i]);
+		  position.push(curr->leftChild);
+		  }*/
 	}
 }
 
@@ -73,6 +83,17 @@ Tree<T>::~Tree(){
 		q.pop();
 		delete[] current;
 	}
+}
+
+template<typename T>
+Tree<T>::Tree(const Tree<T>& ref){
+	root = new TreeNode<T>(*(ref.root));
+/*	position.push(root);
+	Iterator it;
+	while(true){
+		TreeNode<T>** tmp = FindPosition();
+		*tmp = new TreeNode<T>(*(it.Next()));
+*/
 }
 
 template<typename T>
@@ -134,19 +155,19 @@ void Tree<T>::NonrecInorder(){
 	}
 }
 
-/*template<typename T>
-  T* Tree<T>::Iterator::Next(){
-  whlie(true){
-  if(currentNode ->leftChild){
-  q.Push(currentNode -> leftChild);
-  }
-  if(currentNode -> rightChild){
-  q.Push(currentNode -> rightChild);
-  }
-  }
-  if(q.IsEmpty()) return 0;
-  q.Pop();
-  T& tmp = currentNode-> data;
-  currentNode = q.Front();
-  return &tmp
-  }*/
+template<typename T>
+TreeNode<T>* Tree<T>::Iterator::Next(){
+	while(!q.IsEmpty()){
+		if(currentNode ->leftChild){
+			q.Push(currentNode -> leftChild);
+		}
+		if(currentNode -> rightChild){
+			q.Push(currentNode -> rightChild);
+		}
+	}
+	if(q.IsEmpty()) return 0;
+	q.Pop();
+	TreeNode<T>& tmp = currentNode;
+	currentNode = q.Front();
+	return &tmp;
+}
